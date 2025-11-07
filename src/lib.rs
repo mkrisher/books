@@ -9,9 +9,13 @@ mod tests {
     async fn it_successfully_gets_book_info_from_google() {
         let result = book::google::book("978-1718503106").await;
         match &result {
-            Ok(title) => {
-                println!("Found book: {}", title);
-                assert_eq!(title, "The Rust Programming Language, 2nd Edition");
+            Ok(book_info) => {
+                // println!("Found book: {} by {}", book_info.title, book_info.authors);
+
+                assert_eq!(
+                    book_info.title,
+                    "The Rust Programming Language, 2nd Edition"
+                );
             }
             Err(e) => println!("Error: {}", e),
         }
@@ -20,9 +24,13 @@ mod tests {
         // Test with ISBN-10 format
         let result_isbn10 = book::google::book("1718503105").await;
         match &result_isbn10 {
-            Ok(title) => {
-                println!("Found book: {}", title);
-                assert_eq!(title, "The Rust Programming Language, 2nd Edition");
+            Ok(book_info) => {
+                // println!("Found book: {} by {}", book_info.title, book_info.authors);
+
+                assert_eq!(
+                    book_info.title,
+                    "The Rust Programming Language, 2nd Edition"
+                );
             }
             Err(e) => println!("Error: {}", e),
         }
