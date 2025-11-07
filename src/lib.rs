@@ -10,7 +10,10 @@ mod tests {
         let result = book::google::book("978-1718503106").await;
         match &result {
             Ok(book_info) => {
-                // println!("Found book: {} by {}", book_info.title, book_info.authors);
+                // println!(
+                //     "Found book: {} by {} {} pages in the {} category",
+                //     book_info.title, book_info.authors, book_info.page_count, book_info.categories
+                // );
 
                 assert_eq!(
                     book_info.title,

@@ -15,12 +15,17 @@ struct BookItem {
 struct VolumeInfo {
     title: String,
     authors: Vec<String>,
+    #[serde(rename = "pageCount")]
+    page_count: u32,
+    categories: Vec<String>,
 }
 
 #[derive(Deserialize, Debug, PartialEq)]
 pub struct BookInfo {
     pub title: String,
     pub authors: String,
+    pub page_count: u32,
+    pub categories: String,
 }
 
 static URL: &str = "https://www.googleapis.com/books/v1/volumes?q=isbn";
@@ -44,6 +49,8 @@ pub async fn book(isbn: &str) -> Result<BookInfo, Box<dyn std::error::Error>> {
             let result = BookInfo {
                 title: first_book.volume_info.title.clone(),
                 authors: first_book.volume_info.authors.join(", ").clone(),
+                page_count: first_book.volume_info.page_count,
+                categories: first_book.volume_info.categories.join(", ").clone(),
             };
             return Ok(result);
         }
