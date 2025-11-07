@@ -16,6 +16,8 @@ struct VolumeInfo {
     title: String,
 }
 
+static URL: &str = "https://www.googleapis.com/books/v1/volumes?q=isbn";
+
 pub async fn book(isbn: &str) -> Result<String, Box<dyn std::error::Error>> {
     println!("Fetching book with ISBN: {}", isbn);
 
@@ -23,10 +25,7 @@ pub async fn book(isbn: &str) -> Result<String, Box<dyn std::error::Error>> {
     let clean_isbn = isbn.replace("-", "").replace(" ", "");
 
     // Try both ISBN-10 and ISBN-13 formats
-    let url = format!(
-        "https://www.googleapis.com/books/v1/volumes?q=isbn:{}",
-        clean_isbn
-    );
+    let url = format!("{}:{}", URL, clean_isbn);
 
     let client = reqwest::Client::new();
     let response = client.get(&url).send().await?;
